@@ -1,10 +1,13 @@
 package me.chirathr.picar;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,9 +22,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // Pressed
+                    Context context = getApplicationContext();
+                    CharSequence text = "Hello toast!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    // Released
+                    Context context = getApplicationContext();
+                    CharSequence text = "Hello toast!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
                 return true;
             }
