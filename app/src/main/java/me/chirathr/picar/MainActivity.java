@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Context context = getApplicationContext();
-                    CharSequence text = "Hello toast!";
+                    CharSequence text = "key down";
                     int duration = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Context context = getApplicationContext();
-                    CharSequence text = "Hello toast!";
+                    CharSequence text = "key up";
                     int duration = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(context, text, duration);
