@@ -7,14 +7,24 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    Server server;
+    TextView infoip, msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        infoip = (TextView) findViewById(R.id.infoip);
+        msg = (TextView) findViewById(R.id.msg);
+        server = new Server(this);
+//        server.connect();
+//        infoip.setText(server.getIpAddress() + ":" + server.getPort());
 
         Button upButton = (Button) findViewById(R.id.up);
 
@@ -23,18 +33,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Context context = getApplicationContext();
-                    CharSequence text = "key down";
-                    int duration = Toast.LENGTH_SHORT;
+                    String text = "a.key-down";
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    //server.setMsg(text);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Context context = getApplicationContext();
-                    CharSequence text = "key up";
-                    int duration = Toast.LENGTH_SHORT;
+                    String text = "a.key-up";
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+//                    server.setMsg(text);
                 }
                 return true;
             }
@@ -82,5 +88,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        server.onDestroy();
     }
 }

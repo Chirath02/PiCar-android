@@ -50,4 +50,23 @@
         android:layout_below="@+id/left"
         android:layout_alignLeft="@+id/up"
         android:layout_alignStart="@+id/up" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:id="@+id/infoip" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/infoip"
+        android:layout_alignRight="@+id/infoip"
+        android:layout_alignEnd="@+id/infoip"
+        android:layout_marginTop="34dp"
+        android:id="@+id/msg" />
 </RelativeLayout>

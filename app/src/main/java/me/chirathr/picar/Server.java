@@ -20,14 +20,81 @@ public class Server {
     ServerSocket serverSocket;
     String message = "";
     static final int socketServerPORT = 8080;
+    String msgReply;
+    Socket socket;
+    OutputStream outputStream;
 
     public Server(MainActivity activity) {
         this.activity = activity;
-        Thread socketServerThread = new Thread(new SocketServerThread());
-        socketServerThread.start();
     }
 
+    public void connect() {
+        try {
+            // create ServerSocket using specified port
+            serverSocket = new ServerSocket(socketServerPORT);
+
+
+            // block the call until connection is created and return
+            // Socket object
+            socket = serverSocket.accept();
+
+            message = socket.getInetAddress() + ":"
+                    + socket.getPort() + "\n";
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    activity.msg.setText(message);
+                }
+            });
+
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+//    public void setMsg(String msg) {
+//        msgReply = msg;
+//        try {
+//            outputStream = socket.getOutputStream();
+//            PrintStream printStream = new PrintStream(outputStream);
+//            printStream.print(msgReply);
+//            printStream.close();
+//
+//            message += "replayed: " + msgReply + "\n";
+//
+//            activity.runOnUiThread(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//
+//                    activity.msg.setText(message);
+//                }
+//            });
+//
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//            message += "Something wrong! " + e.toString() + "\n";
+//        }
+//
+//        activity.runOnUiThread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//
+//                activity.msg.setText(message);
+//            }
+//        });
+//    }
+
+
+
     public int getPort() {
+
         return socketServerPORT;
     }
 
@@ -42,91 +109,6 @@ public class Server {
         }
     }
 
-    private class SocketServerThread extends Thread {
-
-        int count = 0;
-
-        @Override
-        public void run() {
-            try {
-                // create ServerSocket using specified port
-                serverSocket = new ServerSocket(socketServerPORT);
-
-                while (true) {
-                    // block the call until connection is created and return
-                    // Socket object
-                    Socket socket = serverSocket.accept();
-                    count++;
-                    message += "#" + count + " from "
-                            + socket.getInetAddress() + ":"
-                            + socket.getPort() + "\n";
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            activity.msg.setText(message);
-                        }
-                    });
-
-                    SocketServerReplyThread socketServerReplyThread =
-                            new SocketServerReplyThread(socket, count);
-                    socketServerReplyThread.run();
-
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class SocketServerReplyThread extends Thread {
-
-        private Socket hostThreadSocket;
-        int cnt;
-
-        SocketServerReplyThread(Socket socket, int c) {
-            hostThreadSocket = socket;
-            cnt = c;
-        }
-
-        @Override
-        public void run() {
-            OutputStream outputStream;
-            String msgReply = "Hello from Server, you are #" + cnt;
-
-            try {
-                outputStream = hostThreadSocket.getOutputStream();
-                PrintStream printStream = new PrintStream(outputStream);
-                printStream.print(msgReply);
-                printStream.close();
-
-                message += "replayed: " + msgReply + "\n";
-
-                activity.runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        activity.msg.setText(message);
-                    }
-                });
-
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                message += "Something wrong! " + e.toString() + "\n";
-            }
-
-            activity.runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    activity.msg.setText(message);
-                }
-            });
-        }
-
-    }
 
     public String getIpAddress() {
         String ip = "";
@@ -152,7 +134,7 @@ public class Server {
         } catch (SocketException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            ip += "Something Wrong! " + e.toString() + "\n";
+            ip += "Something Wrong1! " + e.toString() + "\n";
         }
         return ip;
     }
