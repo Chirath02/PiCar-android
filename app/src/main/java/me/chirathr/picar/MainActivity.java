@@ -90,12 +90,12 @@ public class MainActivity extends AppCompatActivity {
                 String text = "";
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Context context = getApplicationContext();
-                    text = "a.key-down";
+                    text = "w.key-down";
                     queue.offer(text);
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Context context = getApplicationContext();
-                    text = "a.key-up";
+                    text = "w.key-up";
                     queue.offer(text);
                 }
                 return true;
@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // Pressed
+                    queue.offer("a.key-down");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    // Released
+                    queue.offer("a.key-up");
                 }
                 return true;
             }
@@ -122,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // Pressed
+                    queue.offer("d.key-down");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    // Released
+                    queue.offer("d.key-up");
                 }
                 return true;
             }
@@ -137,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // Pressed
+                    queue.offer("s.key-down");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    // Released
+                    queue.offer("s.key-up");
                 }
                 return true;
             }
