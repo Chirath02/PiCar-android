@@ -19,7 +19,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView infoip, msg;
     OutputStream outputStream;
     static final int socketServerPORT = 8080;
     static final String socketServerIP = "192.168.43.1";
@@ -30,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        infoip = (TextView) findViewById(R.id.infoip);
-        msg = (TextView) findViewById(R.id.msg);
 
 
         Thread running = new Thread(new Runnable() {
